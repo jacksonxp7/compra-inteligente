@@ -1,0 +1,63 @@
+/* DASHBOARD EXCLUSIVE STYLES */
+.bg-dashboard { background: #f1f5f9; }
+
+.btn-back { 
+    text-decoration: none; color: var(--text-main); 
+    font-size: 1.2rem; padding: 10px; 
+}
+
+.dash-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas no mobile */
+    gap: 12px;
+    padding: 15px;
+}
+
+.metric-card {
+    background: white;
+    padding: 20px 15px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    border: 1px solid #eef2ff;
+    transition: transform 0.2s;
+}
+
+.metric-card:active { transform: scale(0.95); }
+
+.metric-card i {
+    font-size: 1.6rem;
+    color: var(--primary);
+    background: var(--primary-light);
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    display: block;
+}
+
+.metric-card span {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--text-sub);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-card h3 {
+    margin-top: 6px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+/* Destaque para métricas importantes */
+.metric-card.highlight {
+    grid-column: span 2;
+    background: var(--primary);
+    color: white;
+}
+.metric-card.highlight i { background: rgba(255,255,255,0.2); color: white; }
+.metric-card.highlight h3, .metric-card.highlight span { color: white; }

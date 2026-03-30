@@ -3,98 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SmartMarket Pro Max</title>
+    <title>SmartMarket Pro</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <header class="app-header">
-        <div class="header-top">
-            <div class="logo"><i class="fas fa-wallet"></i> Smart<strong>Market</strong></div>
-            <button onclick="exportarDados()" class="btn-icon"><i class="fas fa-share-nodes"></i></button>
-        </div>
-        <div class="budget-control">
-            <span>Orçamento: </span>
-            <input type="number" id="budget-input" placeholder="R$ 0,00" onchange="saveBudget()">
-        </div>
+    <header class="top-bar">
+        <div class="brand">💎 Smart<span>Market</span></div>
+        <a href="dashboard.html" class="btn-dash"><i class="fas fa-chart-line"></i> Dashboard</a>
     </header>
 
-    <main id="app-content">
-        <!-- ABA LISTA -->
-        <section id="tab-lista" class="tab-content active">
-            <div class="input-card">
-                <input type="text" id="nome" placeholder="Nome do produto...">
+    <main class="content">
+        <!-- ABA: LISTA ATIVA -->
+        <section id="aba-lista" class="tab-content active">
+            <div class="card add-form">
+                <!-- O datalist 'sugestoes' será preenchido pelo JS -->
+                <input type="text" id="nome-item" list="sugestoes" placeholder="O que comprar?">
+                <datalist id="sugestoes"></datalist>
+                
                 <div class="input-row">
-                    <select id="categoria">
-                        <option value="Alimento">🍎 Alimento</option>
+                    <select id="categoria-item">
+                        <option value="Alimentos">🍎 Alimentos</option>
                         <option value="Limpeza">🧼 Limpeza</option>
                         <option value="Higiene">🪥 Higiene</option>
-                        <option value="Bebidas">🥤 Bebidas</option>
                         <option value="Pet">🐾 Pet</option>
+                        <option value="Bebidas">🥤 Bebidas</option>
                         <option value="Frios">🧀 Frios</option>
-                        <option value="Doces">🍫 Doces</option>
+                        <option value="Outros">📦 Outros</option>
                     </select>
-                    <select id="unidade" style="width: 80px;">
-                        <option value="un">un</option>
-                        <option value="kg">kg</option>
-                        <option value="L">L</option>
-                    </select>
-                </div>
-                <div class="input-row">
-                    <input type="number" id="preco" placeholder="Preço R$" step="0.01">
-                    <input type="number" id="qtd" value="1" min="1">
-                    <button id="add-btn"><i class="fas fa-cart-plus"></i></button>
+                    <input type="number" id="preco-item" placeholder="R$ 0,00" step="0.01">
+                    <input type="number" id="qtd-item" value="1" min="1">
+                    <button id="btn-adicionar"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
 
-            <div class="list-tools">
-                <input type="text" id="search-input" placeholder="🔍 Buscar na lista..." oninput="renderLista()">
-                <div class="progress-container">
-                    <div id="progress-bar" class="progress-bar"></div>
-                </div>
-            </div>
+            <div id="lista-render" class="list-area"></div>
 
-            <ul id="lista-ul" class="shopping-list"></ul>
-            
-            <div class="action-buttons">
-                <button onclick="finalizarCompra()" class="btn-finish">Finalizar e Salvar Mês</button>
-                <button onclick="limparMarcados()" class="btn-clear">Limpar Comprados</button>
+            <div class="summary-fixed">
+                <div class="total-box">
+                    <small>TOTAL ESTIMADO</small>
+                    <h2 id="total-geral">R$ 0,00</h2>
+                </div>
+                <button onclick="finalizarCompra()" class="btn-finish">Fechar Mês</button>
             </div>
         </section>
 
-        <!-- ABA HISTÓRICO -->
-        <section id="tab-historico" class="tab-content">
-            <h2 class="section-title">Histórico Mensal</h2>
-            <div id="historico-container"></div>
+        <!-- ABA: HISTÓRICO RÁPIDO -->
+        <section id="aba-historico" class="tab-content">
+            <div class="card" style="text-align:center; padding: 30px;">
+                <i class="fas fa-history" style="font-size:3rem; color:var(--primary); margin-bottom:15px"></i>
+                <h3>Histórico Completo</h3>
+                <p>Para comparar meses lado a lado e ver detalhes antigos:</p>
+                <br>
+                <a href="historico.html" class="btn-finish" style="text-decoration:none; display:block">Abrir Aba de Histórico</a>
+            </div>
         </section>
 
-        <!-- ABA DASHBOARD -->
-        <section id="tab-dashboard" class="tab-content">
-            <h2 class="section-title">Análise de Inteligência</h2>
-            <div class="dash-grid" id="dash-grid"></div>
+        <!-- ABA: CONFIGURAÇÕES -->
+        <section id="aba-config" class="tab-content">
+            <!-- O JS injetará o conteúdo aqui -->
         </section>
     </main>
 
-    <div class="total-float">
-        <div class="total-content">
-            <small>Total Atual</small>
-            <h2 id="total-geral">R$ 0,00</h2>
-        </div>
-    </div>
-
-    <nav class="mobile-nav">
-        <button class="nav-item active" onclick="switchTab('lista')">
-            <i class="fas fa-shopping-basket"></i><span>Lista</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('historico')">
-            <i class="fas fa-history"></i><span>Histórico</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('dashboard')">
-            <i class="fas fa-chart-line"></i><span>Dash</span>
-        </button>
+    <nav class="bottom-tabs">
+        <button class="tab-btn active" onclick="switchTab('lista', event)"><i class="fas fa-shopping-basket"></i><span>Lista</span></button>
+        <button class="tab-btn" onclick="switchTab('historico', event)"><i class="fas fa-calendar-alt"></i><span>Histórico</span></button>
+        <button class="tab-btn" onclick="switchTab('config', event)"><i class="fas fa-cog"></i><span>Ajustes</span></button>
     </nav>
 
-    <script src="script.js"></script>
+    <!-- ORDEM IMPORTANTE DOS SCRIPTS -->
+    <script src="configuracoes.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

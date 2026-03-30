@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Histórico Profissional - SmartMarket</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="historico.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-android">
+
+    <header class="top-bar-android">
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
+        <div class="header-title">
+            <h2>Meu Histórico</h2>
+            <p id="status-selecao">Selecione 2 meses para comparar</p>
+        </div>
+        <button onclick="limparTodoHistorico()" class="btn-trash-top"><i class="fas fa-eraser"></i></button>
+    </header>
+
+    <main class="content">
+        <!-- Grid de Cards de Meses -->
+        <div id="historico-render" class="history-grid"></div>
+
+        <!-- Botão Flutuante de Comparação (Aparece ao selecionar 2) -->
+        <button id="fab-comparar" class="fab-compare" onclick="abrirModalComparacao()">
+            <i class="fas fa-balance-scale"></i>
+            <span>Comparar</span>
+        </button>
+    </main>
+
+    <!-- Overlay de Comparação Lado a Lado -->
+    <div id="modal-comparacao" class="modal-full">
+        <div class="modal-nav">
+            <button onclick="fecharModalComparacao()" class="btn-close-modal"><i class="fas fa-times"></i> Fechar</button>
+            <h3>Comparativo Direto</h3>
+        </div>
+        <div class="comparison-split">
+            <div id="col-A" class="comp-column"></div>
+            <div id="col-B" class="comp-column"></div>
+        </div>
+    </div>
+
+    <script src="historico.js"></script>
+</body>
+</html>
